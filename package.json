@@ -1,0 +1,23 @@
+{
+  "name": "bookmycryptoticket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mani-sahu/bookMyCryptoTicket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mani-sahu/bookMyCryptoTicket/issues"
+  },
+  "homepage": "https://github.com/mani-sahu/bookMyCryptoTicket#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
