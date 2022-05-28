@@ -1,12 +1,15 @@
 import React from 'react';
 import './form.css'
 import {Card, Form, Button, Container} from "react-bootstrap";
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import DatePicker from 'react-date-picker';
+
 function Formpage() {
+    const fromRef = useRef()
+    const destinationRef = useRef()
+    const dateRef = useRef()
     const [from, setFrom] = useState("");
     const [destination, setDestination] = useState("");
-    const [startDate, setStartDate] = useState(Date())
-
     const fromList = ["Bangalore","Delhi","Mumbai","Hyderabad","Kolkata"]
     const fromItems = fromList.map((item) => <option value={item}>{item}</option>)
     async function handleSubmit(e){
@@ -27,7 +30,7 @@ function Formpage() {
                                 id='from'
                                 style={{ margin: "10px"}}>
                             <Form.Label className='label'>From</Form.Label>
-                            <Form.Select aria-label='Default select example'>
+                            <Form.Select aria-label='Default select example' ref={dateRef}>
                                 <option>Choose</option>
                                 {fromItems}
                             </Form.Select>
@@ -42,7 +45,10 @@ function Formpage() {
                                 {fromItems}
                             </Form.Select>
                             </Form.Group>
-
+                            <Form.Group>
+                                <Form.Label>Date</Form.Label>
+                                <DatePicker />
+                            </Form.Group>
                         </Form>
                     </Card.Body>
                 </Card>
