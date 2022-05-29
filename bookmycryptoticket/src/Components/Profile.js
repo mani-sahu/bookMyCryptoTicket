@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import { abi, contractAddress, coinAbi, coinContractAddress } from '../contractDetails'
-import axios from 'axios'
+import axios from 'axios';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAzRXwsTwe2hBXvWLIx29Y0-XKFnBluDGI",
+    authDomain: "bookmycryptoticket.firebaseapp.com",
+    projectId: "bookmycryptoticket",
+    storageBucket: "bookmycryptoticket.appspot.com",
+    messagingSenderId: "642264572687",
+    appId: "1:642264572687:web:680112da3a6f449e98547a",
+    measurementId: "G-03G1T9DM22"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 const Ticket = ({ url, index }) => {
     const { data, error, fetch, isFetching, isLoading } = useWeb3ExecuteFunction({
         abi: abi,
@@ -19,7 +33,7 @@ const Ticket = ({ url, index }) => {
     })
     const [transfer, setTransfer] = useState(false);
     const getData = () => {
-        axios.get('https://gateway.pinata.cloud/ipfs/QmbbnEtyivsi1W1qoE45K2wzaq3tfKqYvf9QSSyzCxCa9b/1.json').then(res => {
+        axios.get('https://gateway.pinata.cloud/ipfs/QmYut6Z2gZSgxF5p4E6QWYRu5bmfUygSgZ64gLDdA1Muft/1.json').then(res => {
             console.log(res);
             setTicketDetail(res.data);
         })
@@ -38,13 +52,14 @@ const Ticket = ({ url, index }) => {
                 from: Moralis.account,
                 to: address,
                 tokenId: data[index]._hex
-            }
+            },
+            msgValue: Moralis.Units.ETH("0.005"),
         }
         const transferNft = await Moralis.executeFunction(options);
 
     }
     return (
-        <div>
+        <div className="">
             <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl p-4 shadow-md">
                 <div className="grid grid-cols-4 ">
                     <div className="col-span-2">
@@ -52,8 +67,6 @@ const Ticket = ({ url, index }) => {
                         <h2 className="text-left text-xl ">{ticketDetail.from}</h2>
                         <h1 className="text-left font-bold">To</h1>
                         <h2 className="text-left text-xl">{ticketDetail.to}</h2>
-                        <h1 className="text-left font-bold">Seat</h1>
-                        <h2 className="text-left text-xl">{ticketDetail.seat}</h2>
                     </div>
                     <div className="col-span-2">
                         <h1 className="text-left font-bold">Date</h1>
@@ -148,13 +161,13 @@ const Profile = () => {
         }
         setNftDetails(details);
         console.log(nftDetails);
-    }, [nftURIs])
+    }, [])
 
     // useEffect(() => {
     //     getTokenIds();
     // }, [])
     const getData = () => {
-        axios.get('https://gateway.pinata.cloud/ipfs/QmbbnEtyivsi1W1qoE45K2wzaq3tfKqYvf9QSSyzCxCa9b/1.json').then(res => {
+        axios.get('https://gateway.pinata.cloud/ipfs/QmYut6Z2gZSgxF5p4E6QWYRu5bmfUygSgZ64gLDdA1Muft/1.json').then(res => {
             console.log(res);
         })
     }
@@ -162,39 +175,36 @@ const Profile = () => {
         logout();
         setNftURIs([]);
     }
-    const claimCoins = async () => {
-        //get the token balance from database
-        //if token balance greater than 20000,continue
-        var tokenBalance = 100n;
-        var decimalsOffset = 1000000000000000000n;
-        const options = {
-            contractAddress: coinContractAddress,
-            abi: coinAbi,
-            functionName: "mint",
-            params: {
-                to: account ? account.toString() : "",
-                amount: tokenBalance * decimalsOffset
-            }
-        }
-        const coinToken = await Moralis.executeFunction(options);
-        console.log(coinToken);
+    // const claimCoins = async () => {
+    //     //get the token balance from database
+    //     //if token balance greater than 20000,continue
+    //     const d = (await db.collection('users').doc(account.toString()).get()).data().tokenBalance
+    //     console.log(account)
+    //     console.log(d);
+    //     var tokenBalance = BigInt(d);
+    //     var decimalsOffset = 1000000000000000000n;
+    //     const options = {
+    //         contractAddress: coinContractAddress,
+    //         abi: coinAbi,
+    //         functionName: "mint",
+    //         params: {
+    //             to: account ? account.toString() : "",
+    //             amount: tokenBalance * decimalsOffset
+    //         }
+    //     }
+    //     const coinToken = await Moralis.executeFunction(options);
+    //     console.log(coinToken);
 
-        //else
-        //display an error
+    //     //else
+    //     //display an error
 
-    }
+    // }
     return (
-        <div className="text-center">
-            <div className="grid grid-cols-4 ">
+        <div className="text-center mt-30">
+            <div className="grid grid-cols-4 mt-20 ">
                 <div className="col-span-1 m-4 ">
-                    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl p-4 shadow-md">
-                        <h4 className="text-gray-100 text-xs">FlyingCoin Balance</h4>
-                        <h1 className="text-white text-3xl">{flyingCoinBalance}</h1>
-                        <button className="text-white bg-blue-700 py-1 px-4 rounded-lg" onClick={() => claimCoins()}>Claim</button>
-                        <p className="text-white text-xs">Minimum withdrawal: 20000 </p>
-                    </div>
-                    <br></br>
-                    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl p-4 shadow-md">
+
+                    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl p-4 shadow-md m-10">
                         {!isAuthenticated && (
                             <button className="text-xl text-white bg-blue-600 py-1 px-4 rounded-lg hover:bg-blue-700" onClick={() => authenticate()}>Connect Wallet</button>
                         )}
@@ -205,7 +215,7 @@ const Profile = () => {
                 </div>
                 <div className="col-span-3 m-4">
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold">Your Tickets</h1>
+                        <h1 className="text-2xl font-bold text-black">Your Tickets</h1>
                     </div>
                     {nftURIs.map((item, index) => (
                         <Ticket url={item} index={index} />

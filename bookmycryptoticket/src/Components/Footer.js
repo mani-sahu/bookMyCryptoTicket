@@ -6,17 +6,17 @@ import { faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg
 
 
 const Footer = () => {
-    
+
     return (
 
         <footer className="site-footer bg-dark" data-aos="fade-up">
             <div className="container">
-                
+
             </div>
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 col-sm-12 ">
-                        
+
                         <p className="copyright-text"> &copy; 2022 BookMyCryptoTicket
                         </p>
                     </div>

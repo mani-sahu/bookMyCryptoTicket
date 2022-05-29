@@ -42,9 +42,9 @@ const Navbar = (props) => {
 
                 <div className="menu-only" >
                     <Link to='/#about' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 about">ABOUT</div></Link>
-                    <Link to='/#search' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 speakers">SEARCH FLIGHT</div></Link>
-                    <Link to='/#book' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 talks">BOOK</div></Link>
-                    <Link to='/#footer' className="text-decoration-none" ><div className="navlink rounded-pill text-light px-3 py-2 ms-2 contact">CONTACT US</div></Link>
+                    <Link to='/form' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 speakers">SEARCH FLIGHT</div></Link>
+                    <Link to='/profile' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 talks">My Tickets</div></Link>
+
                 </div>
 
             </div>
