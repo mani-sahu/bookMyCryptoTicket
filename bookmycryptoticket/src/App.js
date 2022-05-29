@@ -2,15 +2,23 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Components/Home/Home';
 import Formpage from './Components/Home/Form/Form';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
+import { useEffect, useState } from "react";
 
 function App() {
+  const [page, setPage] = useState('');
+
   return (
     <BrowserRouter>
+    <Navbar currentPage={page} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route exact path='/form' element={<Formpage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
+    
     );
 }
 
