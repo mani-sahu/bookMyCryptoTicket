@@ -1,0 +1,21 @@
+.box-body{
+    margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+.form-body{
+    display: flex;
+    width: 60%;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+.card_body{
+    background-color: aqua;
+    border-radius: 5px;
+}
+.card_parent{
+    border:none !important;
+}
