@@ -1,46 +1,55 @@
-import React from 'react';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useMoralis } from 'react-moralis';
+import "./Navbar.css";
+import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom"
+import { useLocation } from "react-router-dom";
+import logo from "./logo.png";
 
-const NavBarItem = ({ title, classprops }) => (
-    <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
-)
 
-const Navbar = () => {
-    const { authenticate, isAuthenticated, user } = useMoralis();
-    const { logout, isAuthenticating } = useMoralis();
+const Navbar = (props) => {
 
+
+    const [navbar, setnavbar] = useState(false);
+
+    const { pathname } = useLocation()
+    // console.log(pathname);
+    useEffect(() => {
+        if (pathname !== '/') {
+            setnavbar(true);
+        }
+        else {
+            setnavbar(false);
+        }
+    }, [pathname]);
+
+    const setBackground = () => {
+        if (window.scrollY >= 5 || pathname !== '/') {
+            setnavbar(true);
+        }
+        else {
+            setnavbar(false);
+        }
+    }
+
+    window.addEventListener('scroll', setBackground);
     return (
-        <nav className="w-full bg-black flex md:justify-center justify-between items-center p-4">
-            <div className="md:flex-[0.5] flex-initial justify-center items-center">
-                <NavLink to="/" exact>
-                    <img alt='logo' className='w-32 cursor-pointer' />
-                </NavLink>
+        <header className="navbar header bg-transparent">
+            <div className="nav-div">
+                <div className="align-items-center">
+                    <Link className="navbar-brand" to="/">
+                        <img src={logo} alt="logo" id="nav-logo"></img>
+                    </Link>
+                </div>
+
+                <div className="menu-only" >
+                    <Link to='/#about' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 about">ABOUT</div></Link>
+                    <Link to='/#search' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 speakers">SEARCH FLIGHT</div></Link>
+                    <Link to='/#book' className="text-decoration-none"><div className="navlink rounded-pill text-light px-3 py-2 mx-2 talks">BOOK</div></Link>
+                    <Link to='/#footer' className="text-decoration-none" ><div className="navlink rounded-pill text-light px-3 py-2 ms-2 contact">CONTACT US</div></Link>
+                </div>
+
             </div>
-
-            <ul className='text-white flex list-none flex-row justify-between items-center flex-initial'>
-                {["Profile"].map((item, index) => (
-                    <NavLink to={"/" + item}>
-                        <NavBarItem key={item + index} title={item} />
-                    </NavLink>
-                ))}
-                {!isAuthenticated && (
-                    <l1 className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                        <button onClick={() => authenticate()} disabled={isAuthenticating}>Connect Wallet</button>
-                    </l1>
-                )}
-                {isAuthenticated && (
-                    <l1 className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                        <button onClick={() => logout()} >Log Out</button>
-                    </l1>
-                )}
-
-            </ul>
-        </nav>
+        </header>
     );
 }
 
 export default Navbar;
-
-

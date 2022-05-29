@@ -1,0 +1,77 @@
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+div#header {
+
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 12%;
+    padding-bottom: 12%;
+}
+
+div#header h1.title {
+
+    font-size: 3.75em;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 10px rgb(255, 255, 255);
+    
+}
+
+
+h1 {
+
+    font-size: 1.75em;
+    color: #fff;
+
+    
+}
+
+.title {
+    font-size: 800px;
+    color: #fff;
+    text-align: center;
+  }
+  
+@media only screen and (min-width: 650px) {
+    div#header h1.title {
+        font-size: 8em;
+        
+        color: #fff;
+        text-align: center;
+        text-shadow: 1px 1px 10px rgb(255, 255, 255);
+    }
+
+    div#header {
+        padding-top: 8%;
+    }
+}
+
+div.container-fluid .container {
+    z-index: 1;
+    border-radius: 20px;
+}
+
+div#about {
+    background-image: linear-gradient(to right, rgb(10, 2, 43) , rgb(12, 7, 85));
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: rgb(6, 3, 41); */
+}
+
+div#about .container {
+    background-color: rgba(26, 118, 199, 0.507);
+    color: rgb(211, 208, 235);
+    z-index: 1;
+    border-radius: 20px;
+    padding: 30px;
+}
